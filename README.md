@@ -73,11 +73,10 @@ app.post('/token', async (req, res) => {
 import { oneAccountAuth } from './path/to/oneAccountClient.js';
 
 app.get('/some-endpoint', oneAccountAuth(), (req, res) => {
-    res.status(200).json({
-      isSuccess: true,
-    });
-  }
-);
+  res.status(200).json({
+    isSuccess: true,
+  });
+});
 ```
 
 If you want to check additional scopes, you can just pass them as `requiredScopes`.
@@ -86,9 +85,8 @@ If you want to check additional scopes, you can just pass them as `requiredScope
 import { oneAccountAuth } from './path/to/oneAccountClient.js';
 
 app.get('/protected', oneAccountAuth({ requiredScopes: ['protected.view'] }), (req, res) => {
-    res.status(200).json({
-      isSuccess: true,
-    });
-  }
-);
+  res.status(200).json({
+    isSuccess: true,
+  });
+});
 ```

@@ -46,7 +46,8 @@ export class OneAccountClient {
 
   // express middleware
   oneAccountAuth =
-    (options: OneAccountMiddlewareOptions) => async (req: Request, res: Response, next: NextFunction) => {
+    (options: OneAccountMiddlewareOptions = {}) =>
+    async (req: Request, res: Response, next: NextFunction) => {
       try {
         // get token from authorization header
         const authHeader = req.headers.authorization;
@@ -268,7 +269,6 @@ export class OneAccountClient {
     }
   };
 }
-
 
 export {
   OneAccountConfig,
