@@ -159,7 +159,7 @@ export class OneAccountClient {
       }
 
       if (this.config.internalUserLinking) {
-        this.config.internalUserLinking(req, res, next);
+        await this.config.internalUserLinking(req, res, next);
       }
 
       return next();
