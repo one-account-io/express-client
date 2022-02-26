@@ -63,7 +63,7 @@ export class OneAccountClient {
         }
 
         // add global middleware options to middleware options
-        options.requiredScopes = [...(this.config.global.requiredScopes || []), ...(options.requiredScopes || [])];
+        options.requiredScopes = [...(this.config.global?.requiredScopes || []), ...(options?.requiredScopes || [])];
 
         // verify token and get user's secret from One Account API
         const { data } = await axios.post<OneAccountAPIIntrospectResponse>(
@@ -104,7 +104,7 @@ export class OneAccountClient {
 
           // check required scopes
           const grantedScopes = data.scope;
-          const notGrantedScopes = options.requiredScopes.filter(
+          const notGrantedScopes = (options.requiredScopes || []).filter(
             (requiredScope) => !grantedScopes?.includes(`${this.config.clientId}.${requiredScope}`)
           );
           if (notGrantedScopes.length) {
@@ -114,7 +114,7 @@ export class OneAccountClient {
               message: "One or more of required scopes haven't been granted.",
               responseMessage: "One or more of required scopes haven't been granted.",
               responseMetadata: {
-                requiredScopes: options.requiredScopes,
+                requiredScopes: options.requiredScopes || [],
                 notGrantedScopes,
               },
               statusCode: 403,
