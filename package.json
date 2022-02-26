@@ -1,0 +1,36 @@
+{
+  "name": "@one-account/express-client",
+  "version": "1.0.4",
+  "description": "Experss.js middleware and some methods for One Account.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/one-account-io/express-client.git"
+  },
+  "keywords": [
+    "one-account",
+    "backend",
+    "express",
+    "library",
+    "authentication",
+    "authorization",
+    "middleware"
+  ],
+  "author": "Tim Tisak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/one-account-io/express-client/issues"
+  },
+  "homepage": "https://github.com/one-account-io/express-client#readme",
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "axios": "^0.26.0",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
+  }
+}
