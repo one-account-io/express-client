@@ -104,7 +104,7 @@ export class OneAccountClient {
 
           // check required scopes
           const grantedScopes = data.scope;
-          const notGrantedScopes = (options.requiredScopes || []).filter(
+          const notGrantedScopes = (options?.requiredScopes || []).filter(
             (requiredScope) => !grantedScopes?.includes(`${this.config.clientId}.${requiredScope}`)
           );
           if (notGrantedScopes.length) {
@@ -114,7 +114,7 @@ export class OneAccountClient {
               message: "One or more of required scopes haven't been granted.",
               responseMessage: "One or more of required scopes haven't been granted.",
               responseMetadata: {
-                requiredScopes: options.requiredScopes || [],
+                requiredScopes: options?.requiredScopes || [],
                 notGrantedScopes,
               },
               statusCode: 403,
