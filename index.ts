@@ -170,6 +170,7 @@ export class OneAccountClient {
       grant_type: options.grantType || 'authorization_code',
       code: options.code,
       redirect_uri: options.redirectURI,
+      code_verifier: options.codeVerifier,
       client_id: this.config.clientId,
       client_secret: this.config.clientSecret,
     };

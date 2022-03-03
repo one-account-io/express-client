@@ -34,6 +34,7 @@ export interface OneAccountGetTokenOptions {
   grantType?: string;
   code: string;
   redirectURI: string;
+  codeVerifier: string;
 }
 
 export interface OneAccountGetTokenResult {
@@ -136,6 +137,7 @@ export interface OneAccountAPITokenRequestBody {
   grant_type: string;
   code: string;
   redirect_uri: string;
+  code_verifier: string;
   client_id: string;
   client_secret: string;
 }
