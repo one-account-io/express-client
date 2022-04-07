@@ -90,3 +90,46 @@ app.get('/protected', oneAccountAuth({ requiredScopes: ['protected.view'] }), (r
   });
 });
 ```
+
+
+# ONE ACCOUNT INTEGRATION LEVELS
+
+## Simplify your custom register experience
+Let's say you just need some basic user info (name, email and profile picture) to simplify your custom register experience.
+- user is redirected to 1A, where he or she grants access to profile scope
+- user is redirected back to client to redirect_uri and receives authorization_code
+- client requests token
+- client gets token and id_token with sub (user id) and user info
+- client validates id_token
+- client can now use user info and save it to database
+
+## Sign in with One Account
+With this integration level, users with also be able to log in to your applications using One Account. This level is much more intuitive for users but stil allowes you to implement custom login and register experiences and integrate with other social sign in or identity services. In unlikely event of One Account outage or security compromises, only users that used Sign in with One Account and have not set up another way to sign in to their account will be affected.
+- user is redirected to 1A, where he or she grants access to profile scope
+- user is redirected back to client to redirect_uri and receives authorization_code
+- client requests token
+- client gets token and id_token with sub (user id) and user info
+- client validates id_token
+- client checks if user already exists (searches its users table for sub from id_token)
+- if user exists, client generates token/session and logs user in;
+  if user does not exist, client saves user to database, generates token/session and logs user in
+
+## One Account Token Services
+In case you do not want to generate tokens to users and save them in database or use JWTs, you can ask One Account to generate and save tokens for you. In this scenario your app completely relies on One Account.
+- user is redirected to 1A, where he or she grants access to profile scope
+- user is redirected back to client to redirect_uri and receives authorization_code
+- client requests token
+- client gets token and id_token with sub (user id) and user info
+- client validates id_token
+- client checks if user already exists (searches its users table for sub from id_token)
+- if user exists, client saves id_token to cookies
+  if user does not exist, client saves user to database, and saves id_token to cookies
+
+Authorization
+- user requests a protected endpoint
+- client validatets id_token from cookies
+- client searches its users table for sub from id_token database and retreives its custom user id
+- client returns protected data
+
+## One Account Complete Authentication/Authorization Ecosystem
+In case you want to open your endpoints for third-party developers and share data with them if user approves to do so, you can use One Account's Complete Authentication/Authorization Ecosystem. This integration level allowes you to make one endpoints for both users requesting data from browser and third-party app that used backend server to access data. It is very similar to One Account Token Services, but here, you can specify required scopes for external apps.

@@ -3,8 +3,8 @@
 export interface OneAccountRequestInfo {
   active: Boolean;
   scope: string | null;
-  clientId: string | null;
-  sub: string | null;
+  azp: string | null;
+  sub: number | null;
   aud: string | null;
   token: string | null;
   error?: OneAccountAPIErrorResponse;
@@ -41,7 +41,7 @@ export interface OneAccountGetTokenResult {
   accessToken: string;
   tokenType: string;
   expiresIn: number;
-  sub: string;
+  sub: number;
 }
 
 export interface OneAccountGetUserInfoOptions {
@@ -107,7 +107,7 @@ export class OneAccountError implements OneAccountErrorOptions {
     this.info = {
       active: false,
       scope: null,
-      clientId: null,
+      azp: null,
       sub: null,
       aud: null,
       token: null,
@@ -122,8 +122,8 @@ export class OneAccountError implements OneAccountErrorOptions {
 export interface OneAccountAPIIntrospectResponse {
   active: Boolean;
   scope?: string;
-  client_id?: string;
-  sub?: string;
+  azp?: string;
+  sub?: number;
   aud?: string;
 }
 
@@ -148,7 +148,7 @@ export interface OneAccountAPITokenResponse {
   access_token?: string;
   token_type?: string;
   expires_in?: number;
-  user_secret?: string;
+  sub?: number;
 }
 
 export interface OneAccountAPIExternalTokenResponse {

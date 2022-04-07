@@ -65,7 +65,7 @@ export class OneAccountClient {
         // add global middleware options to middleware options
         options.requiredScopes = [...(this.config.global?.requiredScopes || []), ...(options?.requiredScopes || [])];
 
-        // verify token and get user's secret from One Account API
+        // verify token and get user id from One Account API
         const { data } = await axios.post<OneAccountAPIIntrospectResponse>(
           `${this.config.apiURL}/oauth/introspect`,
           {
@@ -90,7 +90,7 @@ export class OneAccountClient {
           });
         }
 
-        if (data.client_id !== this.config.clientId) {
+        if (data.azp !== this.config.clientId) {
           // token was not issued to this client
           if (data.aud !== this.config.clientId) {
             // token was not issued for this client
@@ -126,8 +126,8 @@ export class OneAccountClient {
         const oneAccountRequestInfo: OneAccountRequestInfo = {
           active: data.active, // is token valid and are all required scopes granted
           scope: data.scope as string, // all granted scopes in this token (more scopes may be granted by user, but are not included in this token, so they are considered not granted)
-          clientId: data.client_id as string, // who requrested token
-          sub: data.sub as string, // user secret provided to you by One Account
+          azp: data.azp as string, // who requrested a token
+          sub: data.sub as number, // user id provided to you by One Account
           aud: data.aud as string, // for which client did the requester request the token - should always be your clientId
           token: authHeader.split(' ')[1], // access token used to call this endpoint
           options, // options you've provided (required scopes)
@@ -198,7 +198,7 @@ export class OneAccountClient {
         accessToken: data.access_token as string,
         tokenType: data.token_type as string,
         expiresIn: data.expires_in as number,
-        sub: data.user_secret as string,
+        sub: data.sub as number,
       };
 
       return newToken;
