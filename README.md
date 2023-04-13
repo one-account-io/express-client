@@ -59,8 +59,8 @@ app.post('/token', async (req, res) => {
     status: 'success',
     token: tokenData.accessToken,
     metadata: {
-      full_name: userInfo.fullName,
-      profile_picture: userInfo.profilePicture,
+      full_name: userInfo.name,
+      profile_picture: userInfo.picture,
     },
   });
 });
@@ -104,7 +104,7 @@ Let's say you just need some basic user info (name, email and profile picture) t
 - client can now use user info and save it to database
 
 ## Sign in with One Account
-With this integration level, users with also be able to log in to your applications using One Account. This level is much more intuitive for users but stil allowes you to implement custom login and register experiences and integrate with other social sign in or identity services. In unlikely event of One Account outage or security compromises, only users that used Sign in with One Account and have not set up another way to sign in to their account will be affected.
+With this integration level, users with also be able to log in to your applications using One Account. This level is much more intuitive for users but stil allows you to implement custom login and register experiences and integrate with other social sign in or identity services. In unlikely event of One Account outage or security compromises, only users that used Sign in with One Account and have not set up another way to sign in to their account will be affected.
 - user is redirected to 1A, where he or she grants access to profile scope
 - user is redirected back to client to redirect_uri and receives authorization_code
 - client requests token
@@ -127,9 +127,9 @@ In case you do not want to generate tokens to users and save them in database or
 
 Authorization
 - user requests a protected endpoint
-- client validatets id_token from cookies
-- client searches its users table for sub from id_token database and retreives its custom user id
+- client validates id_token from cookies
+- client searches its users table for sub from id_token database and retrieved its custom user id
 - client returns protected data
 
 ## One Account Complete Authentication/Authorization Ecosystem
-In case you want to open your endpoints for third-party developers and share data with them if user approves to do so, you can use One Account's Complete Authentication/Authorization Ecosystem. This integration level allowes you to make one endpoints for both users requesting data from browser and third-party app that used backend server to access data. It is very similar to One Account Token Services, but here, you can specify required scopes for external apps.
+In case you want to open your endpoints for third-party developers and share data with them if user approves to do so, you can use One Account's Complete Authentication/Authorization Ecosystem. This integration level allows you to make one endpoints for both users requesting data from browser and third-party app that used backend server to access data. It is very similar to One Account Token Services, but here, you can specify required scopes for external apps.

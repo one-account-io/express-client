@@ -49,16 +49,27 @@ export interface OneAccountGetUserInfoOptions {
 }
 
 export interface OneAccountGetUserInfoResult {
-  birthDate?: Date | string;
-  countryCode?: string;
+  sub: string;
   email?: string;
-  firstName?: string;
-  lastName?: string;
-  fullName?: string;
-  gender?: string;
-  phoneNumer?: string | null;
-  profilePicture?: string;
-  username?: string | null;
+  emailVerified?: boolean;
+  givenName?: string;
+  familyName?: string;
+  name?: string;
+  picture?: string;
+  birthdate?: string;
+  gender?: 'male' | 'female' | 'other';
+  locale?: string;
+  nickname?: string;
+  phoneNumber?: string;
+  phoneNumberVerified?: boolean;
+  address?: {
+    formatted?: string | null;
+    postalCode?: string | null;
+    streetAddress?: string | null;
+    region?: string | null;
+    country?: string | null;
+    locality?: string | null;
+  };
 }
 
 export interface OneAccountGetExternalTokenOptions {
@@ -158,14 +169,25 @@ export interface OneAccountAPIExternalTokenResponse {
 }
 
 export interface OneAccountAPIUserInfoResponse {
-  birth_date?: Date | string;
-  country_code?: string;
+  sub: string;
   email?: string;
-  first_name?: string;
-  last_name?: string;
-  full_name?: string;
-  gender?: string;
-  phone_numer?: string | null;
-  profile_picture?: string;
-  username?: string | null;
+  email_verified?: boolean | number;
+  given_name?: string;
+  family_name?: string;
+  name?: string;
+  picture?: string;
+  birthdate?: string;
+  gender?: 'male' | 'female' | 'other';
+  locale?: string;
+  nickname?: string;
+  phone_number?: string;
+  phone_number_verified?: boolean | number;
+  address?: {
+    formatted?: string | null;
+    postal_code?: string | null;
+    street_address?: string | null;
+    region?: string | null;
+    country?: string | null;
+    locality?: string | null;
+  };
 }

@@ -126,7 +126,7 @@ export class OneAccountClient {
         const oneAccountRequestInfo: OneAccountRequestInfo = {
           active: data.active, // is token valid and are all required scopes granted
           scope: data.scope as string, // all granted scopes in this token (more scopes may be granted by user, but are not included in this token, so they are considered not granted)
-          azp: data.azp as string, // who requrested a token
+          azp: data.azp as string, // who requested a token
           sub: data.sub as number, // user id provided to you by One Account
           aud: data.aud as string, // for which client did the requester request the token - should always be your clientId
           token: authHeader.split(' ')[1], // access token used to call this endpoint
@@ -221,16 +221,29 @@ export class OneAccountClient {
       });
 
       const userInfo: OneAccountGetUserInfoResult = {
-        birthDate: data.birth_date,
-        countryCode: data.country_code,
+        sub: data.sub,
         email: data.email,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        fullName: data.full_name,
+        emailVerified: !!data.email_verified,
+        givenName: data.given_name,
+        familyName: data.family_name,
+        name: data.name,
+        picture: data.picture,
+        birthdate: data.birthdate,
         gender: data.gender,
-        phoneNumer: data.phone_numer,
-        profilePicture: data.profile_picture,
-        username: data.username,
+        locale: data.locale,
+        nickname: data.nickname,
+        phoneNumber: data.phone_number,
+        phoneNumberVerified: !!data.phone_number_verified,
+        address: !!data.address
+          ? {
+              formatted: data.address?.formatted,
+              postalCode: data.address?.postal_code,
+              streetAddress: data.address?.street_address,
+              region: data.address?.region,
+              country: data.address?.country,
+              locality: data.address?.locality,
+            }
+          : undefined,
       };
 
       return userInfo;
